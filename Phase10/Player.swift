@@ -6,15 +6,10 @@ struct Player: Identifiable, Codable {
     
     init(name: String) {
         self.name = name
-        
-        for _ in 0...50 {
-            self.rounds.append(Round())
-        }
-        
     }
     
     var name: String
-    var rounds: Array<Round> = []
+    var rounds: Array<Round> = Array(repeating: Round(), count: 100)
     
 }
 

@@ -3,32 +3,22 @@ import SwiftUI
 class ApplicationViewModel: ObservableObject {
     @Published var games: [Game] = [] {
         didSet {
-            save()
+            print("avm.games.didSet")
         }
     }
     
     init() {
-        load()
+        loadDemo()
     }
     
-    func save() {
-        if let encodedData = try? JSONEncoder().encode(self.games) {
-            UserDefaults.standard.set(encodedData, forKey: "GAMES_LIST")
+    func loadDemo() {
+        for g in 0...3 {
+            var game = Game(name: "Demo Game #\(g)")
+            for p in 0...3 {
+                game.players.append(Player(name: "Player #\(p)"))
+            }
+            self.games.append(game)
         }
-    }
-    
-    func load() {
-        guard
-            let data = UserDefaults.standard.data(forKey: "GAMES_LIST"),
-            let decoded = try? JSONDecoder().decode([Game].self, from: data)
-        else { return }
-        
-        self.games = decoded
-    }
-    
-    func refresh() {
-        self.objectWillChange.send()
-        print("refresh")
     }
     
 }

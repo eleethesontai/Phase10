@@ -14,7 +14,7 @@ struct Phase10App: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            GamesView()
                 .environmentObject(self.viewModel)
         }
     }
